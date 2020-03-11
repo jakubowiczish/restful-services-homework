@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.controller;
+package com.distributedsystems.restfulserviceshomework.controller.rest;
 
 import com.distributedsystems.restfulserviceshomework.model.Location;
 import com.distributedsystems.restfulserviceshomework.response.TemperatureResponse;
@@ -17,11 +17,10 @@ import java.time.LocalDate;
 @RestController
 @RequestMapping("/api/statistics/temperature")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class TemperatureController {
+public class TemperatureRestController {
 
     private LocationService locationService;
     private TemperatureService temperatureService;
-
 
     @GetMapping("/singleDay/{locationName}")
     public ResponseEntity<TemperatureResponse> getTemperatureForSingleDay(@PathVariable String locationName,

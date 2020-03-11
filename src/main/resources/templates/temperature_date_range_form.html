@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<h1>Temperature for date range</h1>
+<form action="#"
+      method="get"
+      th:action="@{/statistics/temperature/temperatureResultDateRange}"
+      th:object="${request}">
+    <p>Location name: <label>
+        <input th:field="*{locationName}" type="text"/>
+    </label></p>
+    <p>Start date: <label>
+        <input th:field="*{startDate}" type="date"/>
+    </label></p>
+    <p>Start date: <label>
+        <input th:field="*{endDate}" type="date"/>
+    </label></p>
+    <p>
+        <input type="submit" value="Submit"/>
+        <input type="reset" value="Reset"/></p>
+</form>
+<a href="/services">Go back to services list</a><br/>
+</body>
+</html>

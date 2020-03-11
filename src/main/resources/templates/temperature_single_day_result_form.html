@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<h1>Result</h1>
+<p th:text="'Average temperature for single day: ' + ${averageTemperature}"></p>
+<p th:text="'Minimum temperature for single day: ' + ${minimumTemperature}"></p>
+<p th:text="'Maximum temperature for single day: ' + ${maximumTemperature}"></p>
+<a href="/statistics/temperature/singleDay">Try again</a><br/>
+<a href="/services">Go back to services list</a><br/>
+
+</body>
+</html>

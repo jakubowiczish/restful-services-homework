@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.controller;
+package com.distributedsystems.restfulserviceshomework.controller.rest;
 
 import com.distributedsystems.restfulserviceshomework.model.Location;
 import com.distributedsystems.restfulserviceshomework.service.LocationService;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class LocationController {
+public class LocationRestController {
 
     private LocationService locationService;
 

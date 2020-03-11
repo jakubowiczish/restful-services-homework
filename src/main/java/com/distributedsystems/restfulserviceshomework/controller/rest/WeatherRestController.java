@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.controller;
+package com.distributedsystems.restfulserviceshomework.controller.rest;
 
 import com.distributedsystems.restfulserviceshomework.model.ConsolidatedWeather;
 import com.distributedsystems.restfulserviceshomework.model.Location;
@@ -16,14 +16,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/weather")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class WeatherController {
+public class WeatherRestController {
 
     private WeatherService weatherService;
     private LocationService locationService;
 
     @GetMapping("/{locationName}")
     public ResponseEntity<List<ConsolidatedWeather>> getWeatherForSingleDay(@PathVariable String locationName,
-                                                          @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+                                                                            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 
         Location location = locationService.getFirstFoundLocation(locationName);
         return ResponseEntity.ok(weatherService.getConsolidatedWeatherForSingleDay(location, date));
