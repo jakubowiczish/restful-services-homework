@@ -17,7 +17,7 @@ public class LocationService {
     public Location getFirstFoundLocation(String location) {
         return Arrays.stream(getLocationList(location))
                 .findFirst()
-                .orElseThrow(Exception::new);
+                .orElseThrow(Exception::new); // TODO: better exception handling
     }
 
     private Location[] getLocationList(String location) {

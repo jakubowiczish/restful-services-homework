@@ -2,8 +2,8 @@ package com.distributedsystems.restfulserviceshomework.controller;
 
 import com.distributedsystems.restfulserviceshomework.model.ConsolidatedWeather;
 import com.distributedsystems.restfulserviceshomework.model.Location;
-import com.distributedsystems.restfulserviceshomework.service.ConsolidatedWeatherService;
 import com.distributedsystems.restfulserviceshomework.service.LocationService;
+import com.distributedsystems.restfulserviceshomework.service.WeatherService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class WeatherController {
 
-    private ConsolidatedWeatherService consolidatedWeatherService;
+    private WeatherService weatherService;
     private LocationService locationService;
 
     @GetMapping("/{locationName}")
@@ -26,6 +26,6 @@ public class WeatherController {
                                                           @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 
         Location location = locationService.getFirstFoundLocation(locationName);
-        return ResponseEntity.ok(consolidatedWeatherService.getConsolidatedWeatherForSingleDay(location, date));
+        return ResponseEntity.ok(weatherService.getConsolidatedWeatherForSingleDay(location, date));
     }
 }

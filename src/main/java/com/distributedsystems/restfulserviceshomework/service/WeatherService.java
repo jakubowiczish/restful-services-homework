@@ -8,21 +8,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 import static com.distributedsystems.restfulserviceshomework.util.Constants.META_WEATHER_BASE_URL;
+import static com.distributedsystems.restfulserviceshomework.util.Utils.isTheSameDate;
 import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @Service
-public class ConsolidatedWeatherService {
+public class WeatherService {
 
-    public List<ConsolidatedWeather> getConsolidatedWeatherForSingleDay(Location location, LocalDate date) {
-        String url = META_WEATHER_BASE_URL
-                + "/" + location.getWoeid()
+    public List<ConsolidatedWeather> getConsolidatedWeatherForSingleDay(final Location location, final LocalDate date) {
+        String url = META_WEATHER_BASE_URL // TODO use UriBuilder
+                + "/" + location.getWhereOnEarthId()
                 + "/" + date.getYear()
                 + "/" + date.getMonthValue()
                 + "/" + date.getDayOfMonth();
@@ -30,11 +30,7 @@ public class ConsolidatedWeatherService {
         return Arrays.stream(Objects.requireNonNull(new RestTemplate()
                 .getForEntity(url, ConsolidatedWeather[].class)
                 .getBody()))
-                .filter(e -> isCreatedDateToday(e.getCreated(), date))
+                .filter(e -> isTheSameDate(e.getCreated(), date))
                 .collect(toList());
-    }
-
-    private boolean isCreatedDateToday(LocalDateTime localDateTime, LocalDate localDate) {
-        return localDateTime.toLocalDate().isEqual(localDate);
     }
 }

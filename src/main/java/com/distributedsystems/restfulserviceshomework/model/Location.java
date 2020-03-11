@@ -1,6 +1,7 @@
 package com.distributedsystems.restfulserviceshomework.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,13 @@ import lombok.NoArgsConstructor;
 public class Location {
 
     private String title;
-    private String location_type;
-    private String latt_long;
-    private int woeid;
+
+    @JsonProperty("location_type")
+    private String locationType;
+
+    @JsonProperty("latt_long")
+    private String latitudeLongitude;
+
+    @JsonProperty("woeid")
+    private int whereOnEarthId;
 }
