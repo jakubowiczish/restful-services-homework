@@ -1,11 +1,11 @@
-package com.distributedsystems.restfulserviceshomework.controller.html;
+package com.distributedsystems.restfulserviceshomework.controller.weather.html;
 
-import com.distributedsystems.restfulserviceshomework.model.Location;
-import com.distributedsystems.restfulserviceshomework.request.TemperatureDateRangeRequest;
-import com.distributedsystems.restfulserviceshomework.request.TemperatureSingleDayRequest;
-import com.distributedsystems.restfulserviceshomework.response.WeatherResponse;
-import com.distributedsystems.restfulserviceshomework.service.LocationService;
-import com.distributedsystems.restfulserviceshomework.service.WeatherProvidingService;
+import com.distributedsystems.restfulserviceshomework.model.weather.Location;
+import com.distributedsystems.restfulserviceshomework.request.weather.TemperatureDateRangeRequest;
+import com.distributedsystems.restfulserviceshomework.request.weather.TemperatureSingleDayRequest;
+import com.distributedsystems.restfulserviceshomework.response.weather.WeatherResponse;
+import com.distributedsystems.restfulserviceshomework.service.weather.LocationService;
+import com.distributedsystems.restfulserviceshomework.service.weather.WeatherProvidingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

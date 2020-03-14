@@ -1,8 +1,8 @@
-package com.distributedsystems.restfulserviceshomework.service;
+package com.distributedsystems.restfulserviceshomework.service.weather;
 
-import com.distributedsystems.restfulserviceshomework.model.ConsolidatedWeather;
-import com.distributedsystems.restfulserviceshomework.model.Location;
-import com.distributedsystems.restfulserviceshomework.response.*;
+import com.distributedsystems.restfulserviceshomework.model.weather.ConsolidatedWeather;
+import com.distributedsystems.restfulserviceshomework.model.weather.Location;
+import com.distributedsystems.restfulserviceshomework.response.weather.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,11 @@
-package com.distributedsystems.restfulserviceshomework.controller.rest;
+package com.distributedsystems.restfulserviceshomework.controller.weather.rest;
 
-import com.distributedsystems.restfulserviceshomework.model.ConsolidatedWeather;
-import com.distributedsystems.restfulserviceshomework.model.Location;
-import com.distributedsystems.restfulserviceshomework.response.WeatherResponse;
-import com.distributedsystems.restfulserviceshomework.service.LocationService;
-import com.distributedsystems.restfulserviceshomework.service.MetaWeatherInformationGatheringService;
-import com.distributedsystems.restfulserviceshomework.service.WeatherProvidingService;
+import com.distributedsystems.restfulserviceshomework.model.weather.ConsolidatedWeather;
+import com.distributedsystems.restfulserviceshomework.model.weather.Location;
+import com.distributedsystems.restfulserviceshomework.response.weather.WeatherResponse;
+import com.distributedsystems.restfulserviceshomework.service.weather.LocationService;
+import com.distributedsystems.restfulserviceshomework.service.weather.MetaWeatherInformationGatheringService;
+import com.distributedsystems.restfulserviceshomework.service.weather.WeatherProvidingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

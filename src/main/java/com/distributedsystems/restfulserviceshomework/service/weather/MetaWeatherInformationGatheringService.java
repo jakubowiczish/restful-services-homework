@@ -1,8 +1,8 @@
-package com.distributedsystems.restfulserviceshomework.service;
+package com.distributedsystems.restfulserviceshomework.service.weather;
 
 
-import com.distributedsystems.restfulserviceshomework.model.ConsolidatedWeather;
-import com.distributedsystems.restfulserviceshomework.model.Location;
+import com.distributedsystems.restfulserviceshomework.model.weather.ConsolidatedWeather;
+import com.distributedsystems.restfulserviceshomework.model.weather.Location;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -19,7 +19,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class MetaWeatherInformationGatheringService {
 
-    private static String getWeatherUriForDate(final Location location, final LocalDate date) {
+    private String getWeatherUriForDate(final Location location, final LocalDate date) {
         return UriComponentsBuilder
                 .fromHttpUrl(META_WEATHER_BASE_URL + "/{id}/{year}/{month}/{day}")
                 .buildAndExpand(

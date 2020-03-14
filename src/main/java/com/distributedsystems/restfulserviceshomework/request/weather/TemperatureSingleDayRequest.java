@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.request;
+package com.distributedsystems.restfulserviceshomework.request.weather;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.response;
+package com.distributedsystems.restfulserviceshomework.response.weather;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VisibilityResponse {
+public class TemperatureResponse {
 
-    private final String unit = "miles";
+    private final String unit = "°C";
     private double minimum;
     private double average;
     private double maximum;

@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.model;
+package com.distributedsystems.restfulserviceshomework.model.weather;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
