@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TemperatureResponse {
+public class AirPressureResponse {
 
-    private final String unit = "°C";
+    private final String unit = "hPa";
     private double average;
     private double minimum;
     private double maximum;

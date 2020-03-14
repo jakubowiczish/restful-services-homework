@@ -14,7 +14,7 @@
         <input th:field="*{locationName}" type="text"/>
     </label></p>
     <p>Date: <label>
-        <input th:field="*{date}" th:max="${#dates.format(#execInfo.getNow(),'yyyy-MM-dd')}"
+        <input th:field="*{date}"
                th:min="2013-04-01"
                type="date"/>
     </label></p>

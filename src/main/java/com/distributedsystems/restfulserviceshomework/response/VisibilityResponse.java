@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TemperatureResponse {
+public class VisibilityResponse {
 
-    private final String unit = "°C";
+    private final String unit = "miles";
     private double average;
     private double minimum;
     private double maximum;
