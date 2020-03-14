@@ -145,7 +145,6 @@ public class WeatherProvidingService {
         double min = Double.MAX_VALUE;
         for (List<ConsolidatedWeather> weatherList : weatherListOfLists) {
             min = Math.min(min, getMinimum(weatherList, function));
-            System.out.println(min);
         }
 
         return min;
