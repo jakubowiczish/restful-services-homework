@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class VisibilityResponse {
 
     private final String unit = "miles";
-    private double average;
     private double minimum;
+    private double average;
     private double maximum;
 }

@@ -17,7 +17,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class WeatherGainingService {
+public class MetaWeatherInformationGatheringService {
 
     private static String getWeatherUriForDate(final Location location, final LocalDate date) {
         return UriComponentsBuilder

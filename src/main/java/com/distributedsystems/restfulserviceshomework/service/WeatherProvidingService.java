@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.ToDoubleFunction;
 
@@ -20,19 +21,20 @@ import static com.distributedsystems.restfulserviceshomework.util.Utils.createIn
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class WeatherProvidingService {
 
-    private WeatherGainingService weatherGainingService;
+    private MetaWeatherInformationGatheringService metaWeatherInformationGatheringService;
 
-    public WeatherResponse getWeatherForSingleDay(final Location location, final LocalDate date) {
+    public WeatherResponse getWeatherForSingleDay(final Location location,
+                                                  final LocalDate date) {
         final List<ConsolidatedWeather> weatherList
-                = weatherGainingService.getConsolidatedWeatherForSingleDay(location, date);
+                = metaWeatherInformationGatheringService.getConsolidatedWeatherForSingleDay(location, date);
 
         return WeatherResponse.builder()
                 .information(createInformationStringForSingleDayWeather(date))
                 .city(location.getTitle())
                 .wind(WindResponse.builder()
                         .average(getAverage(weatherList, ConsolidatedWeather::getWindSpeed))
-                        .minimum(getAverage(weatherList, ConsolidatedWeather::getWindSpeed))
-                        .maximum(getAverage(weatherList, ConsolidatedWeather::getWindSpeed))
+                        .minimum(getMinimum(weatherList, ConsolidatedWeather::getWindSpeed))
+                        .maximum(getMaximum(weatherList, ConsolidatedWeather::getWindSpeed))
                         .build())
                 .temperature(TemperatureResponse.builder()
                         .average(getAverage(weatherList, ConsolidatedWeather::getTheTemp))
@@ -57,34 +59,44 @@ public class WeatherProvidingService {
                 .build();
     }
 
-    public WeatherResponse getWeatherForDateRange(final Location location, final LocalDate startDate, final LocalDate endDate) {
+    public WeatherResponse getWeatherForDateRange(final Location location,
+                                                  final LocalDate startDate,
+                                                  final LocalDate endDate) {
+        List<List<ConsolidatedWeather>> weatherListOfLists = new ArrayList<>();
+
+        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+            final List<ConsolidatedWeather> weatherList
+                    = metaWeatherInformationGatheringService.getConsolidatedWeatherForSingleDay(location, date);
+            weatherListOfLists.add(weatherList);
+        }
+
         return WeatherResponse.builder()
                 .information(createInformationStringForDateRangeWeather(startDate, endDate))
                 .city(location.getTitle())
                 .wind(WindResponse.builder()
-                        .average(getAverageForDateRange(location, startDate, endDate, ConsolidatedWeather::getWindSpeed))
-                        .minimum(getMinimumForDateRange(location, startDate, endDate, ConsolidatedWeather::getWindSpeed))
-                        .maximum(getMaximumForDateRange(location, startDate, endDate, ConsolidatedWeather::getWindSpeed))
+                        .average(getAverageForDateRange(weatherListOfLists, ConsolidatedWeather::getWindSpeed))
+                        .minimum(getMinimumForDateRange(weatherListOfLists, ConsolidatedWeather::getWindSpeed))
+                        .maximum(getMaximumForDateRange(weatherListOfLists, ConsolidatedWeather::getWindSpeed))
                         .build())
                 .temperature(TemperatureResponse.builder()
-                        .average(getAverageForDateRange(location, startDate, endDate, ConsolidatedWeather::getTheTemp))
-                        .minimum(getMinimumForDateRange(location, startDate, endDate, ConsolidatedWeather::getMinTemp))
-                        .maximum(getMaximumForDateRange(location, startDate, endDate, ConsolidatedWeather::getMaxTemp))
+                        .average(getAverageForDateRange(weatherListOfLists, ConsolidatedWeather::getTheTemp))
+                        .minimum(getMinimumForDateRange(weatherListOfLists, ConsolidatedWeather::getMinTemp))
+                        .maximum(getMaximumForDateRange(weatherListOfLists, ConsolidatedWeather::getMaxTemp))
                         .build())
                 .airPressure(AirPressureResponse.builder()
-                        .average(getAverageForDateRange(location, startDate, endDate, ConsolidatedWeather::getAirPressure))
-                        .minimum(getMinimumForDateRange(location, startDate, endDate, ConsolidatedWeather::getAirPressure))
-                        .maximum(getMaximumForDateRange(location, startDate, endDate, ConsolidatedWeather::getAirPressure))
+                        .average(getAverageForDateRange(weatherListOfLists, ConsolidatedWeather::getAirPressure))
+                        .minimum(getMinimumForDateRange(weatherListOfLists, ConsolidatedWeather::getAirPressure))
+                        .maximum(getMaximumForDateRange(weatherListOfLists, ConsolidatedWeather::getAirPressure))
                         .build())
                 .humidity(HumidityResponse.builder()
-                        .average(getAverageForDateRange(location, startDate, endDate, ConsolidatedWeather::getHumidity))
-                        .minimum(getMinimumForDateRange(location, startDate, endDate, ConsolidatedWeather::getHumidity))
-                        .maximum(getMaximumForDateRange(location, startDate, endDate, ConsolidatedWeather::getHumidity))
+                        .average(getAverageForDateRange(weatherListOfLists, ConsolidatedWeather::getHumidity))
+                        .minimum(getMinimumForDateRange(weatherListOfLists, ConsolidatedWeather::getHumidity))
+                        .maximum(getMaximumForDateRange(weatherListOfLists, ConsolidatedWeather::getHumidity))
                         .build())
                 .visibility(VisibilityResponse.builder()
-                        .average(getAverageForDateRange(location, startDate, endDate, ConsolidatedWeather::getVisibility))
-                        .minimum(getMinimumForDateRange(location, startDate, endDate, ConsolidatedWeather::getVisibility))
-                        .maximum(getMaximumForDateRange(location, startDate, endDate, ConsolidatedWeather::getVisibility))
+                        .average(getAverageForDateRange(weatherListOfLists, ConsolidatedWeather::getVisibility))
+                        .minimum(getMinimumForDateRange(weatherListOfLists, ConsolidatedWeather::getVisibility))
+                        .maximum(getMaximumForDateRange(weatherListOfLists, ConsolidatedWeather::getVisibility))
                         .build())
                 .build();
     }
@@ -116,47 +128,33 @@ public class WeatherProvidingService {
                 .orElse(Double.MIN_VALUE);
     }
 
-    private double getAverageForDateRange(final Location location,
-                                          final LocalDate startDate,
-                                          final LocalDate endDate,
+    private double getAverageForDateRange(final List<List<ConsolidatedWeather>> weatherListOfLists,
                                           final ToDoubleFunction<ConsolidatedWeather> function) {
         double sum = 0;
         int numberOfDays = 0;
-        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
-            final List<ConsolidatedWeather> weatherList
-                    = weatherGainingService.getConsolidatedWeatherForSingleDay(location, date);
-
+        for (List<ConsolidatedWeather> weatherList : weatherListOfLists) {
             sum += getAverage(weatherList, function);
-            numberOfDays++;
+            ++numberOfDays;
         }
 
         return numberOfDays == 0 ? 0 : sum / numberOfDays;
     }
 
-    private double getMinimumForDateRange(final Location location,
-                                          final LocalDate startDate,
-                                          final LocalDate endDate,
+    private double getMinimumForDateRange(final List<List<ConsolidatedWeather>> weatherListOfLists,
                                           final ToDoubleFunction<ConsolidatedWeather> function) {
         double min = Double.MAX_VALUE;
-        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
-            final List<ConsolidatedWeather> weatherList
-                    = weatherGainingService.getConsolidatedWeatherForSingleDay(location, date);
-
+        for (List<ConsolidatedWeather> weatherList : weatherListOfLists) {
             min = Math.min(min, getMinimum(weatherList, function));
+            System.out.println(min);
         }
 
         return min;
     }
 
-    private double getMaximumForDateRange(final Location location,
-                                          final LocalDate startDate,
-                                          final LocalDate endDate,
+    private double getMaximumForDateRange(final List<List<ConsolidatedWeather>> weatherListOfLists,
                                           final ToDoubleFunction<ConsolidatedWeather> function) {
         double max = Double.MIN_VALUE;
-        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
-            final List<ConsolidatedWeather> weatherList
-                    = weatherGainingService.getConsolidatedWeatherForSingleDay(location, date);
-
+        for (List<ConsolidatedWeather> weatherList : weatherListOfLists) {
             max = Math.max(max, getMaximum(weatherList, function));
         }
 

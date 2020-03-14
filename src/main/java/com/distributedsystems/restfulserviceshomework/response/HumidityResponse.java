@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class HumidityResponse {
 
     private final String unit = "%";
-    private double average;
     private double minimum;
+    private double average;
     private double maximum;
 }

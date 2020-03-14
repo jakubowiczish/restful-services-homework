@@ -4,7 +4,7 @@ import com.distributedsystems.restfulserviceshomework.model.ConsolidatedWeather;
 import com.distributedsystems.restfulserviceshomework.model.Location;
 import com.distributedsystems.restfulserviceshomework.response.WeatherResponse;
 import com.distributedsystems.restfulserviceshomework.service.LocationService;
-import com.distributedsystems.restfulserviceshomework.service.WeatherGainingService;
+import com.distributedsystems.restfulserviceshomework.service.MetaWeatherInformationGatheringService;
 import com.distributedsystems.restfulserviceshomework.service.WeatherProvidingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class WeatherRestController {
 
     private LocationService locationService;
     private WeatherProvidingService weatherProvidingService;
-    private WeatherGainingService weatherGainingService;
+    private MetaWeatherInformationGatheringService metaWeatherInformationGatheringService;
 
     @GetMapping("/singleDay/{locationName}")
     public ResponseEntity<WeatherResponse> getTemperatureForSingleDay(@PathVariable String locationName,
@@ -48,6 +48,6 @@ public class WeatherRestController {
                                                                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 
         Location location = locationService.getFirstFoundLocation(locationName);
-        return ResponseEntity.ok(weatherGainingService.getConsolidatedWeatherForSingleDay(location, date));
+        return ResponseEntity.ok(metaWeatherInformationGatheringService.getConsolidatedWeatherForSingleDay(location, date));
     }
 }

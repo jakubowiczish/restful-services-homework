@@ -43,11 +43,7 @@ public class WeatherHtmlController {
                                                  Model model) {
         final Location location = locationService.getFirstFoundLocation(locationName);
         WeatherResponse response = weatherProvidingService.getWeatherForSingleDay(location, date);
-
-        model.addAttribute("city", response.getCity());
-        model.addAttribute("averageTemperature", response.getTemperature().getAverage());
-        model.addAttribute("minimumTemperature", response.getTemperature().getMinimum());
-        model.addAttribute("maximumTemperature", response.getTemperature().getMaximum());
+        addAttributesToModel(response, model);
         return "temperature_single_day_result_form";
     }
 
@@ -58,10 +54,37 @@ public class WeatherHtmlController {
                                                     Model model) {
         final Location location = locationService.getFirstFoundLocation(locationName);
         WeatherResponse response = weatherProvidingService.getWeatherForDateRange(location, startDate, endDate);
-        model.addAttribute("city", response.getCity());
-        model.addAttribute("averageTemperature", response.getTemperature().getAverage());
-        model.addAttribute("minimumTemperature", response.getTemperature().getMinimum());
-        model.addAttribute("maximumTemperature", response.getTemperature().getMaximum());
+        addAttributesToModel(response, model);
         return "temperature_date_range_result_form";
+    }
+
+    private void addAttributesToModel(WeatherResponse response, Model model) {
+        model.addAttribute("information", response.getInformation());
+        model.addAttribute("city", response.getCity());
+
+        model.addAttribute("minimumTemperature", response.getTemperature().getMinimum());
+        model.addAttribute("averageTemperature", response.getTemperature().getAverage());
+        model.addAttribute("maximumTemperature", response.getTemperature().getMaximum());
+        model.addAttribute("temperatureUnit", response.getTemperature().getUnit());
+
+        model.addAttribute("minimumAirPressure", response.getAirPressure().getMinimum());
+        model.addAttribute("averageAirPressure", response.getAirPressure().getAverage());
+        model.addAttribute("maximumAirPressure", response.getAirPressure().getMaximum());
+        model.addAttribute("airPressureUnit", response.getAirPressure().getUnit());
+
+        model.addAttribute("minimumWind", response.getWind().getMinimum());
+        model.addAttribute("averageWind", response.getWind().getAverage());
+        model.addAttribute("maximumWind", response.getWind().getMaximum());
+        model.addAttribute("windUnit", response.getWind().getUnit());
+
+        model.addAttribute("minimumHumidity", response.getHumidity().getMinimum());
+        model.addAttribute("averageHumidity", response.getHumidity().getAverage());
+        model.addAttribute("maximumHumidity", response.getHumidity().getMaximum());
+        model.addAttribute("humidityUnit", response.getHumidity().getUnit());
+
+        model.addAttribute("minimumVisibility", response.getVisibility().getMinimum());
+        model.addAttribute("averageVisibility", response.getVisibility().getAverage());
+        model.addAttribute("maximumVisibility", response.getVisibility().getMaximum());
+        model.addAttribute("visibilityUnit", response.getVisibility().getUnit());
     }
 }

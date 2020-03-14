@@ -6,10 +6,34 @@
 </head>
 <body>
 <h1>Result</h1>
-<p th:text="'Data for: ' + ${city}"></p>
-<p th:text="'Average temperature for date range: ' + ${averageTemperature}"></p>
-<p th:text="'Minimum temperature for date range: ' + ${minimumTemperature}"></p>
-<p th:text="'Maximum temperature for date range: ' + ${maximumTemperature}"></p>
+<p th:text="'Information:' + ${information}"></p>
+<p th:text="'City: ' + ${city}"></p>
+
+<p th:text="'Minimum temperature for single day: ' + ${minimumTemperature}"></p>
+<p th:text="'Average temperature for single day: ' + ${averageTemperature}"></p>
+<p th:text="'Maximum temperature for single day: ' + ${maximumTemperature}"></p>
+<p th:text="'Unit: ' + ${temperatureUnit}"></p>
+
+<p th:text="'Minimum air pressure for single day: ' + ${minimumAirPressure}"></p>
+<p th:text="'Average air pressure for single day: ' + ${averageAirPressure}"></p>
+<p th:text="'Maximum air pressure for single day: ' + ${maximumAirPressure}"></p>
+<p th:text="'Unit: ' + ${airPressureUnit}"></p>
+
+<p th:text="'Minimum wind for single day: ' + ${minimumWind}"></p>
+<p th:text="'Average wind for single day: ' + ${averageWind}"></p>
+<p th:text="'Maximum wind for single day: ' + ${maximumWind}"></p>
+<p th:text="'Unit: ' + ${windUnit}"></p>
+
+<p th:text="'Minimum humidity for single day: ' + ${minimumHumidity}"></p>
+<p th:text="'Average humidity for single day: ' + ${averageHumidity}"></p>
+<p th:text="'Maximum humidity for single day: ' + ${maximumHumidity}"></p>
+<p th:text="'Unit: ' + ${humidityUnit}"></p>
+
+<p th:text="'Minimum vibility for single day: ' + ${minimumVisibility}"></p>
+<p th:text="'Average vibility for single day: ' + ${averageVisibility}"></p>
+<p th:text="'Maximum vibility for single day: ' + ${maximumVisibility}"></p>
+<p th:text="'Unit: ' + ${visibilityUnit}"></p>
+
 <a href="/statistics/temperature/dateRange">Try again</a><br/>
 <a href="/">Go back to services list</a><br/>
 

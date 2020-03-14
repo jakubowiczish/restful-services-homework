@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class TemperatureResponse {
 
     private final String unit = "°C";
-    private double average;
     private double minimum;
+    private double average;
     private double maximum;
 }

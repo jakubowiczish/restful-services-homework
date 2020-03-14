@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class AirPressureResponse {
 
     private final String unit = "hPa";
-    private double average;
     private double minimum;
+    private double average;
     private double maximum;
 }

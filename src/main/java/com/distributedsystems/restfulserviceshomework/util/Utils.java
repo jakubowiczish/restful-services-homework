@@ -10,16 +10,10 @@ public class Utils {
     }
 
     public static String createInformationStringForSingleDayWeather(final LocalDate date) {
-        return LocalDate.now().isBefore(date)
-                ? "Weather forecast for: " + date.toString()
-                : "Official weather for: " + date.toString();
+        return "Weather for: " + date.toString();
     }
 
     public static String createInformationStringForDateRangeWeather(final LocalDate startDate, final LocalDate endDate) {
-        final LocalDate today = LocalDate.now();
-        if (today.isBefore(startDate))
-            return "Weather forecast for date range: " + startDate.toString() + " - " + endDate.toString();
-//        else if (today.isAfter(startDate)) // TODO: update
-        return "";
+        return "Weather for: " + startDate.toString() + " - " + endDate.toString();
     }
 }

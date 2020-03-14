@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class WindResponse {
 
     private final String unit = "miles per hour";
-    private double average;
     private double minimum;
+    private double average;
     private double maximum;
 }
