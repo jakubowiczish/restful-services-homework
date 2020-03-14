@@ -1,5 +1,6 @@
 package com.distributedsystems.restfulserviceshomework.service;
 
+import com.distributedsystems.restfulserviceshomework.exception.LocationNotFoundException;
 import com.distributedsystems.restfulserviceshomework.model.Location;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class LocationService {
     public Location getFirstFoundLocation(String location) {
         return Arrays.stream(getLocationList(location))
                 .findFirst()
-                .orElseThrow(Exception::new); // TODO: better exception handling
+                .orElseThrow(() -> new LocationNotFoundException("There is no location associated with: " + location));
     }
 
     private Location[] getLocationList(String location) {

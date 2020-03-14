@@ -14,10 +14,14 @@
         <input th:field="*{locationName}" type="text"/>
     </label></p>
     <p>Start date: <label>
-        <input th:field="*{startDate}" type="date"/>
+        <input th:field="*{startDate}" th:max="${#dates.format(#execInfo.getNow(),'yyyy-MM-dd')}"
+               th:min="2013-04-01"
+               type="date"/>
     </label></p>
     <p>Start date: <label>
-        <input th:field="*{endDate}" type="date"/>
+        <input th:field="*{endDate}" th:max="${#dates.format(#execInfo.getNow(),'yyyy-MM-dd')}"
+               th:min="2013-04-01"
+               type="date"/>
     </label></p>
     <p>
         <input type="submit" value="Submit"/>

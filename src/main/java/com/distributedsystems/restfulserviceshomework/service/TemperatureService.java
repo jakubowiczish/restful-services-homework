@@ -23,6 +23,7 @@ public class TemperatureService {
                 = weatherService.getConsolidatedWeatherForSingleDay(location, date);
 
         return TemperatureResponse.builder()
+                .city(location.getTitle())
                 .averageTemperature(getAverageTemperatureForSingleDay(weatherList, location, date))
                 .minimumTemperature(getMinimumTemperatureForSingleDay(weatherList, location, date))
                 .maximumTemperature(getMaximumTemperatureForSingleDay(weatherList, location, date))
@@ -31,6 +32,7 @@ public class TemperatureService {
 
     public TemperatureResponse getTemperatureForDateRange(final Location location, final LocalDate startDate, final LocalDate endDate) {
         return TemperatureResponse.builder()
+                .city(location.getTitle())
                 .averageTemperature(getAverageTemperatureForDateRange(location, startDate, endDate))
                 .minimumTemperature(getMinimumTemperatureForDateRange(location, startDate, endDate))
                 .maximumTemperature(getMaximumTemperatureForDateRange(location, startDate, endDate))

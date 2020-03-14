@@ -43,6 +43,7 @@ public class TemperatureHtmlController {
                                                  Model model) {
         final Location location = locationService.getFirstFoundLocation(locationName);
         TemperatureResponse response = temperatureService.getTemperatureForSingleDay(location, date);
+        model.addAttribute("city", response.getCity());
         model.addAttribute("averageTemperature", response.getAverageTemperature());
         model.addAttribute("minimumTemperature", response.getMinimumTemperature());
         model.addAttribute("maximumTemperature", response.getMaximumTemperature());
@@ -56,6 +57,7 @@ public class TemperatureHtmlController {
                                                     Model model) {
         final Location location = locationService.getFirstFoundLocation(locationName);
         TemperatureResponse response = temperatureService.getTemperatureForDateRange(location, startDate, endDate);
+        model.addAttribute("city", response.getCity());
         model.addAttribute("averageTemperature", response.getAverageTemperature());
         model.addAttribute("minimumTemperature", response.getMinimumTemperature());
         model.addAttribute("maximumTemperature", response.getMaximumTemperature());

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TemperatureResponse {
 
+    private String city;
     private double averageTemperature;
     private double minimumTemperature;
     private double maximumTemperature;
