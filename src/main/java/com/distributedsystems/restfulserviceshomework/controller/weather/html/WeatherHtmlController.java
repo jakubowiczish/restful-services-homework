@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 
 @Controller
-@RequestMapping("/statistics/temperature")
+@RequestMapping("/statistics/weather")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class WeatherHtmlController {
 
@@ -37,7 +37,7 @@ public class WeatherHtmlController {
         return "temperature_date_range_form";
     }
 
-    @GetMapping("/temperatureResultSingleDay")
+    @GetMapping("/weatherSingleDay")
     public String showTemperatureResultForOneDay(@RequestParam String locationName,
                                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                                                  Model model) {
@@ -47,7 +47,7 @@ public class WeatherHtmlController {
         return "temperature_single_day_result_form";
     }
 
-    @GetMapping("/temperatureResultDateRange")
+    @GetMapping("/weatherDateRange")
     public String showTemperatureResultForDateRange(@RequestParam String locationName,
                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,

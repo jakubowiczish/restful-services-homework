@@ -8,7 +8,7 @@
 <h1>Weather for date range</h1>
 <form action="#"
       method="get"
-      th:action="@{/statistics/temperature/temperatureResultDateRange}"
+      th:action="@{/statistics/weather/weatherDateRange}"
       th:object="${request}">
     <p>Location name: <label>
         <input th:field="*{locationName}" type="text"/>

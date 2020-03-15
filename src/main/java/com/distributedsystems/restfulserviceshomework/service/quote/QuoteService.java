@@ -14,7 +14,7 @@ import static com.distributedsystems.restfulserviceshomework.util.Constants.QUOT
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class QuoteGatheringService {
+public class QuoteService {
 
     public List<QuoteResponse> getNRandomQuotes(int n) {
         List<Quote> quotes = IntStream.range(0, n)

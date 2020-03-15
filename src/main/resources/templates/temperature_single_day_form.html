@@ -8,7 +8,7 @@
 <h1>Weather for single day</h1>
 <form action="#"
       method="get"
-      th:action="@{/statistics/temperature/temperatureResultSingleDay}"
+      th:action="@{/statistics/weather/weatherSingleDay}"
       th:object="${request}">
     <p>Location name: <label>
         <input th:field="*{locationName}" type="text"/>

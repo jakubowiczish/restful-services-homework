@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<h1>Result</h1>
+
+<tr th:each="quote : ${quotes}">
+    <td><span th:text="'Author:' + ${quote.author}"></span></td>
+    <br/>
+    <td><span th:text="'Quote: ' + ${quote.quote}"></span></td>
+    <br/>
+    <td><span th:text="'Quote rating: ' + ${quote.rating}"></span></td>
+    <br/><br/>
+</tr>
+
+<a href="/quotes/nRandomQuotes">Try again</a><br/>
+<a href="/">Go back to services list</a><br/>
+
+</body>
+</html>
