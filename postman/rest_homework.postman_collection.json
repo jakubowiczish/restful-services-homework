@@ -1,0 +1,112 @@
+{
+  "info": {
+    "_postman_id": "1decedc1-d5e6-49c9-b4d0-4742df2a8f53",
+    "name": "rest_homework",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "singleDayWeather",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{localhost}}{{api}}{{statistics_weather}}{{single_day}}/{{city_weather}}?date={{date}}",
+          "host": [
+            "{{localhost}}{{api}}{{statistics_weather}}{{single_day}}"
+          ],
+          "path": [
+            "{{city_weather}}"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "{{date}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "dateRangeWeather",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{localhost}}{{api}}{{statistics_weather}}{{date_range}}/{{city_weather}}?startDate={{start_date}}&endDate={{end_date}}",
+          "host": [
+            "{{localhost}}{{api}}{{statistics_weather}}{{date_range}}"
+          ],
+          "path": [
+            "{{city_weather}}"
+          ],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "{{start_date}}"
+            },
+            {
+              "key": "endDate",
+              "value": "{{end_date}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "nRandomQuotes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{localhost}}{{api}}{{quotes}}{{n_random_quotes}}/{{number_of_quotes}}",
+          "host": [
+            "{{localhost}}{{api}}{{quotes}}{{n_random_quotes}}"
+          ],
+          "path": [
+            "{{number_of_quotes}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ipAddressInfo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{localhost}}{{api}}{{ip_url}}{{single_ip}}/{{ip_addresses}}?city={{city_ip}}&countryCode={{country_code}}&continentCode={{continent_code}}&organizationName={{organization_name}}",
+          "host": [
+            "{{localhost}}{{api}}{{ip_url}}{{single_ip}}"
+          ],
+          "path": [
+            "{{ip_addresses}}"
+          ],
+          "query": [
+            {
+              "key": "city",
+              "value": "{{city_ip}}"
+            },
+            {
+              "key": "countryCode",
+              "value": "{{country_code}}"
+            },
+            {
+              "key": "continentCode",
+              "value": "{{continent_code}}"
+            },
+            {
+              "key": "organizationName",
+              "value": "{{organization_name}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
