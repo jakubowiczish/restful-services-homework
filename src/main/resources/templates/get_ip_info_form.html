@@ -10,7 +10,7 @@
       method="get"
       th:action="@{/ips/ipInfoResult}"
       th:object="${request}">
-    <p>Ip addresses: <label>
+    <p>Ip addresses (should be separated with commas): <label>
         <input th:field="*{ipAddresses}" type="text"/>
     </label></p>
     <p>Filters:
