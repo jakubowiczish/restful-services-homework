@@ -18,7 +18,7 @@
                th:min="2013-04-01"
                type="date"/>
     </label></p>
-    <p>Start date: <label>
+    <p>End date: <label>
         <input th:field="*{endDate}" th:max="${#dates.format(#execInfo.getNow(),'yyyy-MM-dd')}"
                th:min="2013-04-01"
                type="date"/>
