@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.response.weather;
+package com.distributedsystems.restfulserviceshomework.model.weather.internal;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AirPressureResponse {
+public class HumidityResponse {
 
-    private final String unit = "hPa";
+    private final String unit = "%";
     private double minimum;
     private double average;
     private double maximum;

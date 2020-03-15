@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.request.quote;
+package com.distributedsystems.restfulserviceshomework.model.quote.internal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

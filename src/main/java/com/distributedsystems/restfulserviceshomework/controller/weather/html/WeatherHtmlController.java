@@ -1,11 +1,11 @@
 package com.distributedsystems.restfulserviceshomework.controller.weather.html;
 
-import com.distributedsystems.restfulserviceshomework.model.weather.Location;
-import com.distributedsystems.restfulserviceshomework.request.weather.TemperatureDateRangeRequest;
-import com.distributedsystems.restfulserviceshomework.request.weather.TemperatureSingleDayRequest;
-import com.distributedsystems.restfulserviceshomework.response.weather.WeatherResponse;
+import com.distributedsystems.restfulserviceshomework.model.weather.internal.LocationInternal;
+import com.distributedsystems.restfulserviceshomework.model.weather.internal.TemperatureDateRangeRequest;
+import com.distributedsystems.restfulserviceshomework.model.weather.internal.TemperatureSingleDayRequest;
+import com.distributedsystems.restfulserviceshomework.model.weather.internal.WeatherResponse;
 import com.distributedsystems.restfulserviceshomework.service.weather.LocationService;
-import com.distributedsystems.restfulserviceshomework.service.weather.WeatherProvidingService;
+import com.distributedsystems.restfulserviceshomework.service.weather.WeatherService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,7 +23,7 @@ import java.time.LocalDate;
 public class WeatherHtmlController {
 
     private LocationService locationService;
-    private WeatherProvidingService weatherProvidingService;
+    private WeatherService weatherService;
 
     @GetMapping("/singleDay")
     public String getSingleDayTemperatureForm(Model model) {
@@ -41,8 +41,8 @@ public class WeatherHtmlController {
     public String showTemperatureResultForOneDay(@RequestParam String locationName,
                                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                                                  Model model) {
-        final Location location = locationService.getFirstFoundLocation(locationName);
-        WeatherResponse response = weatherProvidingService.getWeatherForSingleDay(location, date);
+        final LocationInternal locationInternal = locationService.getFirstFoundLocation(locationName);
+        WeatherResponse response = weatherService.getWeatherForSingleDay(locationInternal, date);
         addAttributesToModel(response, model);
         return "temperature_single_day_result_form";
     }
@@ -52,8 +52,8 @@ public class WeatherHtmlController {
                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
                                                     Model model) {
-        final Location location = locationService.getFirstFoundLocation(locationName);
-        WeatherResponse response = weatherProvidingService.getWeatherForDateRange(location, startDate, endDate);
+        final LocationInternal locationInternal = locationService.getFirstFoundLocation(locationName);
+        WeatherResponse response = weatherService.getWeatherForDateRange(locationInternal, startDate, endDate);
         addAttributesToModel(response, model);
         return "temperature_date_range_result_form";
     }

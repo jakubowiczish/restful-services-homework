@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.model.quote;
+package com.distributedsystems.restfulserviceshomework.model.quote.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Quote {
+public class QuoteExternal {
 
     @JsonProperty("_id")
     private String id;

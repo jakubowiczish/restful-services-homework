@@ -1,36 +1,37 @@
 package com.distributedsystems.restfulserviceshomework.service.weather;
 
-import com.distributedsystems.restfulserviceshomework.model.weather.ConsolidatedWeather;
-import com.distributedsystems.restfulserviceshomework.model.weather.Location;
-import com.distributedsystems.restfulserviceshomework.response.weather.*;
+import com.distributedsystems.restfulserviceshomework.model.weather.external.ConsolidatedWeather;
+import com.distributedsystems.restfulserviceshomework.model.weather.internal.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.function.ToDoubleFunction;
 
-import static com.distributedsystems.restfulserviceshomework.util.Utils.createInformationStringForDateRangeWeather;
-import static com.distributedsystems.restfulserviceshomework.util.Utils.createInformationStringForSingleDayWeather;
+import static com.distributedsystems.restfulserviceshomework.util.Constants.META_WEATHER_BASE_URL;
+import static com.distributedsystems.restfulserviceshomework.util.Utils.*;
+import static com.distributedsystems.restfulserviceshomework.util.WeatherMathUtil.*;
+import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class WeatherProvidingService {
+public class WeatherService {
 
-    private MetaWeatherInformationGatheringService metaWeatherInformationGatheringService;
-
-    public WeatherResponse getWeatherForSingleDay(final Location location,
+    public WeatherResponse getWeatherForSingleDay(final LocationInternal locationInternal,
                                                   final LocalDate date) {
-        final List<ConsolidatedWeather> weatherList
-                = metaWeatherInformationGatheringService.getConsolidatedWeatherForSingleDay(location, date);
+        final List<ConsolidatedWeather> weatherList = getConsolidatedWeatherForSingleDay(locationInternal, date);
 
         return WeatherResponse.builder()
                 .information(createInformationStringForSingleDayWeather(date))
-                .city(location.getTitle())
+                .city(locationInternal.getTitle())
                 .wind(WindResponse.builder()
                         .average(getAverage(weatherList, ConsolidatedWeather::getWindSpeed))
                         .minimum(getMinimum(weatherList, ConsolidatedWeather::getWindSpeed))
@@ -59,20 +60,19 @@ public class WeatherProvidingService {
                 .build();
     }
 
-    public WeatherResponse getWeatherForDateRange(final Location location,
+    public WeatherResponse getWeatherForDateRange(final LocationInternal locationInternal,
                                                   final LocalDate startDate,
                                                   final LocalDate endDate) {
         List<List<ConsolidatedWeather>> weatherListOfLists = new ArrayList<>();
 
         for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
-            final List<ConsolidatedWeather> weatherList
-                    = metaWeatherInformationGatheringService.getConsolidatedWeatherForSingleDay(location, date);
+            final List<ConsolidatedWeather> weatherList = getConsolidatedWeatherForSingleDay(locationInternal, date);
             weatherListOfLists.add(weatherList);
         }
 
         return WeatherResponse.builder()
                 .information(createInformationStringForDateRangeWeather(startDate, endDate))
-                .city(location.getTitle())
+                .city(locationInternal.getTitle())
                 .wind(WindResponse.builder()
                         .average(getAverageForDateRange(weatherListOfLists, ConsolidatedWeather::getWindSpeed))
                         .minimum(getMinimumForDateRange(weatherListOfLists, ConsolidatedWeather::getWindSpeed))
@@ -101,62 +101,33 @@ public class WeatherProvidingService {
                 .build();
     }
 
-    private double getAverage(final List<ConsolidatedWeather> weatherList,
-                              final ToDoubleFunction<ConsolidatedWeather> function) {
-        if (weatherList == null || weatherList.isEmpty()) return 0;
-
-        double sum = weatherList.stream()
-                .mapToDouble(function)
-                .sum();
-
-        return sum / weatherList.size();
+    private List<ConsolidatedWeather> getConsolidatedWeatherForSingleDay(final LocationInternal locationInternal,
+                                                                         final LocalDate date) {
+        return getConsolidatedWeatherWithForecastForSingleDay(locationInternal, date)
+                .stream()
+                .filter(e -> isTheSameDate(e.getCreated(), date))
+                .collect(toList());
     }
 
-    private double getMinimum(final List<ConsolidatedWeather> weatherList,
-                              final ToDoubleFunction<ConsolidatedWeather> function) {
-        return weatherList.stream()
-                .mapToDouble(function)
-                .min()
-                .orElse(Double.MAX_VALUE);
+    private List<ConsolidatedWeather> getConsolidatedWeatherWithForecastForSingleDay(final LocationInternal locationInternal,
+                                                                                     final LocalDate date) {
+        return Arrays.stream(requireNonNull(new RestTemplate()
+                .getForEntity(
+                        getWeatherUriForDate(locationInternal, date),
+                        ConsolidatedWeather[].class)
+                .getBody()))
+                .collect(toList());
     }
 
-    private double getMaximum(final List<ConsolidatedWeather> weatherList,
-                              final ToDoubleFunction<ConsolidatedWeather> function) {
-        return weatherList.stream()
-                .mapToDouble(function)
-                .max()
-                .orElse(Double.MIN_VALUE);
-    }
-
-    private double getAverageForDateRange(final List<List<ConsolidatedWeather>> weatherListOfLists,
-                                          final ToDoubleFunction<ConsolidatedWeather> function) {
-        double sum = 0;
-        int numberOfDays = 0;
-        for (List<ConsolidatedWeather> weatherList : weatherListOfLists) {
-            sum += getAverage(weatherList, function);
-            ++numberOfDays;
-        }
-
-        return numberOfDays == 0 ? 0 : sum / numberOfDays;
-    }
-
-    private double getMinimumForDateRange(final List<List<ConsolidatedWeather>> weatherListOfLists,
-                                          final ToDoubleFunction<ConsolidatedWeather> function) {
-        double min = Double.MAX_VALUE;
-        for (List<ConsolidatedWeather> weatherList : weatherListOfLists) {
-            min = Math.min(min, getMinimum(weatherList, function));
-        }
-
-        return min;
-    }
-
-    private double getMaximumForDateRange(final List<List<ConsolidatedWeather>> weatherListOfLists,
-                                          final ToDoubleFunction<ConsolidatedWeather> function) {
-        double max = Double.MIN_VALUE;
-        for (List<ConsolidatedWeather> weatherList : weatherListOfLists) {
-            max = Math.max(max, getMaximum(weatherList, function));
-        }
-
-        return max;
+    private String getWeatherUriForDate(final LocationInternal locationInternal,
+                                        final LocalDate date) {
+        return UriComponentsBuilder
+                .fromHttpUrl(META_WEATHER_BASE_URL + "/{id}/{year}/{month}/{day}")
+                .buildAndExpand(
+                        locationInternal.getWhereOnEarthId(),
+                        date.getYear(),
+                        date.getMonthValue(),
+                        date.getDayOfMonth())
+                .toUriString();
     }
 }

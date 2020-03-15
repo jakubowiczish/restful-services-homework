@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.model.weather;
+package com.distributedsystems.restfulserviceshomework.model.weather.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

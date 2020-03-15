@@ -1,7 +1,7 @@
 package com.distributedsystems.restfulserviceshomework.service.quote;
 
-import com.distributedsystems.restfulserviceshomework.model.quote.Quote;
-import com.distributedsystems.restfulserviceshomework.response.quote.QuoteResponse;
+import com.distributedsystems.restfulserviceshomework.model.quote.external.QuoteExternal;
+import com.distributedsystems.restfulserviceshomework.model.quote.internal.Quote;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -16,14 +16,14 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class QuoteService {
 
-    public List<QuoteResponse> getNRandomQuotes(int n) {
-        List<Quote> quotes = IntStream.range(0, n)
+    public List<Quote> getNRandomQuotes(int n) {
+        List<QuoteExternal> quoteExternalRespons = IntStream.range(0, n)
                 .mapToObj(i -> new RestTemplate()
-                        .getForEntity(getRandomQuoteUri(), Quote.class)
+                        .getForEntity(getRandomQuoteUri(), QuoteExternal.class)
                         .getBody())
                 .collect(toList());
 
-        return quotes.stream()
+        return quoteExternalRespons.stream()
                 .map(this::convert)
                 .collect(toList());
     }
@@ -35,11 +35,11 @@ public class QuoteService {
                 .toUriString();
     }
 
-    private QuoteResponse convert(Quote quote) {
-        return QuoteResponse.builder()
-                .author(quote.getAuthor())
-                .quote(quote.getQuote())
-                .rating(quote.getRating())
+    private Quote convert(QuoteExternal quoteExternal) {
+        return Quote.builder()
+                .author(quoteExternal.getAuthor())
+                .quote(quoteExternal.getQuote())
+                .rating(quoteExternal.getRating())
                 .build();
     }
 }

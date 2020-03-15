@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.model.weather;
+package com.distributedsystems.restfulserviceshomework.model.weather.external;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location {
+public class LocationExternal {
 
     private String title;
 

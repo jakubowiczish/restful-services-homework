@@ -1,7 +1,7 @@
 package com.distributedsystems.restfulserviceshomework.controller.quote.html;
 
-import com.distributedsystems.restfulserviceshomework.request.quote.QuoteRequest;
-import com.distributedsystems.restfulserviceshomework.response.quote.QuoteResponse;
+import com.distributedsystems.restfulserviceshomework.model.quote.internal.Quote;
+import com.distributedsystems.restfulserviceshomework.model.quote.internal.QuoteRequest;
 import com.distributedsystems.restfulserviceshomework.service.quote.QuoteService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class QuoteHtmlController {
 
     @GetMapping("/nRandomQuotesResult")
     public String showNRandomQuotesResult(@RequestParam int numberOfQuotes, Model model) {
-        List<QuoteResponse> quotes = quoteService.getNRandomQuotes(numberOfQuotes);
+        List<Quote> quotes = quoteService.getNRandomQuotes(numberOfQuotes);
         model.addAttribute("quotes", quotes);
         return "get_n_random_quotes_result_form";
     }

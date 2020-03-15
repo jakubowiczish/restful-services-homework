@@ -1,4 +1,4 @@
-package com.distributedsystems.restfulserviceshomework.response.quote;
+package com.distributedsystems.restfulserviceshomework.model.quote.internal;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuoteResponse {
+public class Quote {
 
     private String author;
     private String quote;

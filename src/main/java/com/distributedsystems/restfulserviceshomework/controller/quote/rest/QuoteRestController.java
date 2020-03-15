@@ -1,6 +1,6 @@
 package com.distributedsystems.restfulserviceshomework.controller.quote.rest;
 
-import com.distributedsystems.restfulserviceshomework.response.quote.QuoteResponse;
+import com.distributedsystems.restfulserviceshomework.model.quote.internal.Quote;
 import com.distributedsystems.restfulserviceshomework.service.quote.QuoteService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class QuoteRestController {
     private QuoteService quoteService;
 
     @GetMapping("/nRandomQuotes/{numberOfQuotes}")
-    public ResponseEntity<List<QuoteResponse>> getNRandomQuotes(@PathVariable int numberOfQuotes) {
+    public ResponseEntity<List<Quote>> getNRandomQuotes(@PathVariable int numberOfQuotes) {
         return ResponseEntity.ok(quoteService.getNRandomQuotes(numberOfQuotes));
     }
 }
