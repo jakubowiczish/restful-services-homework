@@ -78,9 +78,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{localhost}}{{api}}{{ip_url}}{{single_ip}}/{{ip_addresses}}?city={{city_ip}}&countryCode={{country_code}}&continentCode={{continent_code}}&organizationName={{organization_name}}",
+          "raw": "{{localhost}}{{api}}{{ip_url}}{{ip_info}}/{{ip_addresses}}?city={{city_ip}}&countryCode={{country_code}}&continentCode={{continent_code}}&organizationName={{organization_name}}",
           "host": [
-            "{{localhost}}{{api}}{{ip_url}}{{single_ip}}"
+            "{{localhost}}{{api}}{{ip_url}}{{ip_info}}"
           ],
           "path": [
             "{{ip_addresses}}"
