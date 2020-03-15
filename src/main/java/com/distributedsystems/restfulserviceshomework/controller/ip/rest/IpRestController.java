@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.zalando.logbook.Logbook;
 
 import java.util.List;
 
@@ -23,7 +22,6 @@ public class IpRestController {
                                                                     @RequestParam(required = false) String countryCode,
                                                                     @RequestParam(required = false) String continentCode,
                                                                     @RequestParam(required = false) String organizationName) {
-        Logbook logbook = Logbook.create();
         return ResponseEntity.ok(ipService.getIpAddressesInfo(ipAddresses, city, countryCode, continentCode, organizationName));
     }
 }
