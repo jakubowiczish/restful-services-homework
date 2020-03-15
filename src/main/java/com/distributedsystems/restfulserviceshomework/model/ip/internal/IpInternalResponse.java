@@ -1,14 +1,17 @@
-package com.distributedsystems.restfulserviceshomework.model.ip.external;
+package com.distributedsystems.restfulserviceshomework.model.ip.internal;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class IpExternal {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class IpInternalResponse {
 
     private String status;
     private String message;
@@ -26,8 +29,6 @@ public class IpExternal {
     private String timezone;
     private String currency;
     private String isp;
-
-    @JsonProperty("org")
     private String organizationName;
     private String as;
     private String asname;

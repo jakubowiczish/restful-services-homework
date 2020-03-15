@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title></title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+</head>
+<body>
+<h1>Result</h1>
+
+<tr th:each="ip : ${ips}">
+    <td><span th:text="'Status: ' + ${ip.getStatus()}"></span></td>
+    <br/>
+    <td><span th:text="'Continent: ' + ${ip.getContinent()}"></span></td>
+    <br/>
+    <td><span th:text="'Continent code: ' + ${ip.getContinentCode()}"></span></td>
+    <br/>
+    <td><span th:text="'Country: ' + ${ip.getCountry()}"></span></td>
+    <br/>
+    <td><span th:text="'Country code: ' + ${ip.getCountryCode()}"></span></td>
+    <br/>
+    <td><span th:text="'Region: ' + ${ip.getRegion()}"></span></td>
+    <br/>
+    <td><span th:text="'Region name: ' + ${ip.getRegionName()}"></span></td>
+    <br/>
+    <td><span th:text="'District: ' + ${ip.getDistrict()}"></span></td>
+    <br/>
+    <td><span th:text="'Zip: ' + ${ip.getZip()}"></span></td>
+    <br/>
+    <td><span th:text="'Lat: ' + ${ip.getLat()}"></span></td>
+    <br/>
+    <td><span th:text="'Lon: ' + ${ip.getLon()}"></span></td>
+    <br/>
+    <td><span th:text="'Timezone: ' + ${ip.getTimezone()}"></span></td>
+    <br/>
+    <td><span th:text="'Currency: ' + ${ip.getCurrency()}"></span></td>
+    <br/>
+    <td><span th:text="'ISP: ' + ${ip.getIsp()}"></span></td>
+    <br/>
+    <td><span th:text="'Organization name: ' + ${ip.getOrganizationName()}"></span></td>
+    <br/>
+    <td><span th:text="'AS: ' + ${ip.getAs()}"></span></td>
+    <br/>
+    <td><span th:text="'AS name: ' + ${ip.getAsname()}"></span></td>
+    <br/>
+    <td><span th:text="'Reverse: ' + ${ip.getReverse()}"></span></td>
+    <br/>
+    <td><span th:text="'Mobile: ' + ${ip.isMobile()}"></span></td>
+    <br/>
+    <td><span th:text="'Proxy: ' + ${ip.isProxy()}"></span></td>
+    <br/>
+    <td><span th:text="'Hosting: ' + ${ip.isHosting()}"></span></td>
+    <br/>
+    <td><span th:text="'Query: ' + ${ip.getQuery()}"></span></td>
+    <br/>
+    <br/>
+</tr>
+
+<a href="/ips/getInfo">Try again</a><br/>
+<a href="/">Go back to services list</a><br/>
+
+</body>
+</html>
