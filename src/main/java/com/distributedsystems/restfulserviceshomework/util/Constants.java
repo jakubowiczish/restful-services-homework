@@ -10,5 +10,7 @@ public class Constants {
 
     public static final String QUOTES_RANDOM = "/random";
 
+    public static final String IP_API_BASE_URL = "http://ip-api.com/json/";
+
 }
 

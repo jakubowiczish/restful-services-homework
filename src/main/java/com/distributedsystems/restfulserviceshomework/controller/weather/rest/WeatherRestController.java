@@ -5,7 +5,6 @@ import com.distributedsystems.restfulserviceshomework.model.weather.internal.Wea
 import com.distributedsystems.restfulserviceshomework.service.weather.LocationService;
 import com.distributedsystems.restfulserviceshomework.service.weather.WeatherService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
-@Slf4j
 @RestController
 @RequestMapping("/api/statistics/weather")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
